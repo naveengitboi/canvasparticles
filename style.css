@@ -18,7 +18,7 @@
 #imageCanvas
 {
   position: absolute;
-  background-color: blue;
+  background-color: rgb(255, 255, 255);
   top: 0;
   left: 0;
 }
