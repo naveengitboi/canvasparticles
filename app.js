@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 ctx.fillStyle = "white"
 console.log(ctx)
-
+ctx.strokeStyle = "white"
 
 // setup classes
 
@@ -12,16 +12,16 @@ console.log(ctx)
 class Particle{
     constructor(effect){
         this.effect = effect;
-        this.radius = Math.random() * 40;
+        this.radius = 10;
         this.x = this.radius + Math.random()*(this.effect.width - this.radius*2);
         this.y = this.radius + Math.random()*(this.effect.height - this.radius * 2);
-        this.velX = Math.random()*4 ;
-        this.velY = Math.random()*4 ;
+        this.velX = Math.random()*4 -2 ;
+        this.velY = Math.random()*4 -2;
     }
     
     draw(context){
         context.beginPath();
-        context.fillStyle = 'hsl(' + 655 + ', 100%, 50%';
+        context.fillStyle = 'hsl(' + this.x + ', 100%, 50%';
         context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
         context.fill();
     }
@@ -60,10 +60,33 @@ class Effect{
     }
 
     handleParticles(context){
+        this.connectParticles(context)
         this.particles.forEach(particle => {
             particle.draw(context);
             particle.update()
         })
+    }
+
+    connectParticles(context){
+        const maxDist = 100;
+        for(let i =0; i < this.particles.length; i++){
+            for(let j = i; j < this.particles.length; j++){
+                const dx = this.particles[i].x - this.particles[j].x;
+                const dy = this.particles[i].y - this.particles[j].y;
+
+                const dist = Math.hypot(dx, dy);
+                if(dist <= maxDist){
+                    context.save()
+                    const opacity = 1- (dist/maxDist);
+                    context.globalAlpha = opacity;
+                    context.beginPath();
+                    context.moveTo(this.particles[i].x, this.particles[i].y);
+                    context.lineTo(this.particles[j].x, this.particles[j].y);
+                    context.stroke();
+                    context.restore()
+                }
+            }
+        }
     }
 }
 
