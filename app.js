@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 ctx.fillStyle = "white"
 console.log(ctx)
-ctx.strokeStyle = "white"
+
 
 // setup classes
 
@@ -37,18 +37,28 @@ class Particle{
         }
 
     }
+    reset(){
+        this.x = this.radius + Math.random()*(this.effect.width-this.radius*2);
+        this.y =  this.radius + Math.random()*(this.effect.height - this.radius*2)
+    }
 }
 
 
 
 class Effect{
-    constructor(canvas){
+    constructor(canvas, context){
         this.canvas = canvas;
         this.width = this.canvas.width;
         this.height = this.canvas.height;
+        this.context = context;
         this.particles = [];
         this.numberOfParticles = 200;
         this.createParticles();
+        window.addEventListener('resize', (e) => {
+            console.log(e)
+            this.resize(e.target.window.innerWidth, e.target.window.innerHeight)
+        })
+        
 
     }
 
@@ -88,10 +98,23 @@ class Effect{
             }
         }
     }
+
+    resize(updatedWidth, updatedHeight){
+        this.canvas.width = updatedWidth;
+        this.canvas.height = updatedHeight;
+        this.width = updatedWidth;
+        this.height = updatedHeight;
+         this.context.fillStyle = "white"
+         this.context.strokeStyle = "white"
+        this.particles.forEach(particle => {
+            particle.reset();
+        })
+
+    }
 }
 
 
-const effect = new Effect(canvas)
+const effect = new Effect(canvas, ctx)
 
 
 
