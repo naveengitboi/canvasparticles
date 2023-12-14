@@ -4,28 +4,51 @@
   padding: 0;
 }
 
-
-#canvas1
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgb(0, 0, 0);
+#canvas1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0);
 }
 
 /* image particles */
 
-#imageCanvas
-{
+#imageCanvas {
   position: absolute;
   background-color: rgb(255, 255, 255);
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
-#imageOne
-{
+#imageOne {
   display: none;
   position: absolute;
   z-index: 500;
+}
+
+.controls {
+  z-index: 1000;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  padding: 0.85rem;
+}
+.controls input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin: 0.15rem;
+  border: 1px solid rgb(185, 185, 185);
+  border-radius: 0.25rem;
+}
+.controls button {
+  padding: 0.5rem;
+  border: none;
+  background-color: orange;
+  cursor: pointer;
+}
+
+.controls button:active {
+  outline: none;
 }
