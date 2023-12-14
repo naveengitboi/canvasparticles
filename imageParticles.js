@@ -6,28 +6,30 @@ window.addEventListener("load", () => {
   canvas.height = window.innerHeight;
 
   class Particle {
-    constructor(effect,x ,y, color){
+    constructor(effect,x ,y, color, gap){
         this.effect = effect;
-        this.radius = 10;
-        this.x = this.radius +  Math.random()*(this.effect.width - this.radius) ;
-        this.y = this.radius + Math.random()*(this.effect.height - this.radius) ;
+        this.rectH = this.rectW = 3;
+        this.x = Math.random()*(this.effect.width);
+        this.y = Math.random()*(this.effect.height) ;
         this.velX = Math.random()*5 - 5;
         this.velY = Math.random()*5 - 5;
-
         this.originX = Math.floor(x);
         this.originY = Math.floor(y);
         this.color = color;
+        this.ease = 0.02;
         
     }
     draw(context){
         this.context = context;
-        this.context.beginPath();
-        this.context.arc(this.x , this.y, this.radius, 0, Math.PI*2)
-        this.context.fill()
+        this.context.fillRect(this.x , this.y, this.rectW, this.rectH)
+        this.context.fillStyle = this.color
+        
     }
     update(){
-        this.x += this.velX;
-        this.y += this.velY
+        // this.x += this.velX;
+        // this.y += this.velY;
+        this.x += (this.originX - this.x)*this.ease;
+        this.y += (this.originY - this.y)*this.ease;
     }
   }
 
@@ -40,25 +42,27 @@ window.addEventListener("load", () => {
         this.image = document.getElementById("imageOne");
         this.centerX = (this.width - this.image.width) * 0.5;
         this.centerY = (this.height - this.image.height) * 0.5;
-        this.gap = 5;
+        this.gap = 3;
         this.createParticles(context);
 
     }
     createParticles(context){
         context.drawImage(this.image, this.centerX, this.centerY)
-        const pixels = context.getImageData(0,0,this.width, this.height);
+        const pixels = context.getImageData(0,0,this.width, this.height).data;
+        // console.log(pixels)
         for(let y =0; y < this.height; y+= this.gap){
-            for(let x = 0; x< this.width; x+= this.gap){
+            for(let x = 0; x < this.width; x+= this.gap){
                 const idx = (y*this.width + x)*4;
-                console.log(idx)
-                const red = pixels[idx];
+                // console.log(idx)
+                const red = pixels[[idx]];
                 const green = pixels[idx+1];
                 const blue = pixels[idx+2];
+                // console.log(red, green, blue)
                 const alpha = pixels[idx+3];
                 const color = 'rgb(' + red + ',' + green + "," + blue + ")";
                 // console.log(alpha)
                 if(alpha > 0){
-                    this.particlesArray.push(new Particle(this, x, y, color))
+                    this.particlesArray.push(new Particle(this, x, y, color, this.gap))
                 }
             }
         }
@@ -81,6 +85,6 @@ window.addEventListener("load", () => {
     effect.handleParticles(ctx);
     requestAnimationFrame(animate)
   }
-//   animate()
+  animate()
 });
 
