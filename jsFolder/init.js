@@ -1,7 +1,14 @@
 window.addEventListener("load", () => {
   createCanvas();
 
-  new starryNight(document.getElementById('canvas_0'))
+  const projects = [
+    Constellation, StarryNight
+  ]
+
+
+  for(let i=0; i< projects.length; i++){
+    new projects[i](document.getElementById(`canvas_${i}`))
+  }
 });
 
 function createCanvas() {
