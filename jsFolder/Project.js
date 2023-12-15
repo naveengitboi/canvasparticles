@@ -25,6 +25,11 @@ class Project{
             me.interval = null;
             me.showDisabled();
         }, false);
+
+        this.canvas.addEventListener('click', (e) => {
+            const location = getCursorLocation(me.canvas, e)
+            // console.log(location)
+        })
     }
 
       showDisabled(){
@@ -39,6 +44,15 @@ class Project{
     }
 
     
+}
+
+
+function getCursorLocation(canvas, e){
+    let rect = canvas.getBoundingClientRect() ;
+    return [
+        Math.round(canvas.width*((e.clientX - rect.left)/(rect.right-rect.left))),
+        Math.round(canvas.height*((e.clientY - rect.top)/(rect.bottom - rect.top)))
+    ]
 }
 
 function fillBackground(ctx, canvas){
