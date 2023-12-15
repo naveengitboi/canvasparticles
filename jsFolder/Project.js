@@ -1,6 +1,6 @@
 class Project{
     constructor(canvas){
-        this.canvas = canvas;
+    this.canvas = canvas;
     this.ctx = this.canvas.getContext("2d");    this.particleSize = 100;
     this.stars = this.getRandomStars(this.particleSize);
 
