@@ -42,7 +42,7 @@ class ShootingStars extends Project {
 
 class ShootingStar {
   constructor(canvas) {
-    this.loc = [Math.random() *canvas.width, Math.random() *canvas.height];
+    this.loc = [canvas.width*0.5 + Math.random() *canvas.width*0.5, Math.random() *canvas.height];
     this.step = 0.1;
     this.radius = 1;
   }
@@ -61,7 +61,6 @@ class ShootingStar {
     else{
         this.radius = Math.sin(this.step)*5+2
     }
-    this.loc[0] += Math.random()*5 + 50;
-    this.loc[1] += Math.random()*5 + 50;
+    this.loc[0] -= Math.random()*5 + 50;
   }
 }
