@@ -2,6 +2,7 @@ window.addEventListener("load", () => {
   createCanvas();
 
   const projects = [
+    SnowFall,
     ShootingStars,Constellation, StarryNight
   ]
 
