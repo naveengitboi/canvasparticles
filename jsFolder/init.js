@@ -2,7 +2,6 @@ window.addEventListener("load", () => {
   createCanvas();
 
   const projects = [
-    SnowFall,
     ShootingStars,Constellation, StarryNight
   ]
 
@@ -15,7 +14,7 @@ window.addEventListener("load", () => {
 function createCanvas() {
   const CANVAS_WIDTH = 1000;
   const CANVAS_HEIGHT = 1000;
-  const projects = 100;
+  const projects = 3;
 
   for (let i = 0; i < projects; i++) {
     const canvas = document.createElement("canvas");

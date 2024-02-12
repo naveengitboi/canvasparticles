@@ -2,7 +2,7 @@ class SnowFall extends Project {
     constructor(canvas) {
         super(canvas)
         this.particleSize = 100;
-        this.snow = this.generateSnowParticles(this.particleSize);
+        this.snow = this.getRandomStars(this.particleSize);
 
         this.drawFrame();
         this.showDisabled();
@@ -15,7 +15,7 @@ class SnowFall extends Project {
         }
     }
 
-    generateSnowParticles(n) {
+    getRandomStars(n) {
         let arr = [];
         for (let i = 0; i < n; i++) {
             arr.push(
